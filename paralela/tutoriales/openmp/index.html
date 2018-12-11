@@ -185,6 +185,13 @@ for(&ltINICIALIZACIÓN&gt ; &ltCONDICIÓN DE PARADA&gt ; &ltACTUALIZACIÓN&gt){
 for(&ltINICIALIZACIÓN&gt ; &ltCONDICIÓN DE PARADA&gt ; &ltACTUALIZACIÓN&gt){
 	&ltBLOQUE DE CÓDIGO&gt
 }</code></pre>
+	      	<h2> Directiva Task</h2>
+	      	<p>Las tareas en OpenMP son bloques de código que el compilador envuelve y pone a disposición para ejecutarse en paralelo.</p>
+	      	<pre align="left"><code class="C++">#pragma omp parallel
+{
+			&ltBLOQUE DE CÓDIGO&gt
+}</code></pre>
+	      
 		<h2>Cláusula Reduction</h2>
 		<p>Se refiere a una variable acumuladora donde se crea una copia local dentro de cada hilo de la variable establecida y que cuando todos los hilos ya han hecho su trabajo, con estas copias locales se va a actualizar la variable global. La variable se va a inicializar con la ientidad del operador que establecimos, por ejemplo si el operador es suma (+), la variable será inicializada con cero (0). Su formato es el siguiente: </p>
 		<pre align="left"><code class="C++">reduction(operador : variable)</code></pre>
@@ -193,7 +200,8 @@ for(&ltINICIALIZACIÓN&gt ; &ltCONDICIÓN DE PARADA&gt ; &ltACTUALIZACIÓN&gt){
 		<p><b>master</b>: Esta directiva se presenta cuando se necesita que un segmento de código sea ejecutado solo por el hilo maestro, es decir que los demás hilos van a omitir este bloque de código. Su sintaxis es la siguiente: </p>
 		<pre align="left"><code class="C++">#pragma omp master
 {
-  &ltBLOQUE DE CÓDIGO&gt
+	#pragma omp task
+		printf("hello world from a random thread\n");
 }</code></pre>
 		<p><b>single</b>: Es una directiva muy utilizada e indica el bloque de código que solo puede ser ejecutado por un hilo, el hilo que llegue primero será el que va a trabajar ese bloque de código y los demás hilos lo van a omitir.</p>
 		<pre align="left"><code class="C++">#pragma omp single
